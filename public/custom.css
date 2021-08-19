@@ -1,0 +1,7 @@
+.form-element-canvas canvas {
+    height: 120px;
+    border: 1px dotted #e3e6ef;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    cursor: crosshair;
+}
