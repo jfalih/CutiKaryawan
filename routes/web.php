@@ -17,6 +17,7 @@ Route::get('/','WelcomeController@index')->name('welcome');
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 Route::get('/login', 'LoginController@index')->name('login');
 Route::get('/cuti', 'CutiController@index')->name('cuti');
+Route::post('/category', 'CutiController@category')->name('category');
 Route::get('/cuti/laporan', 'Staff\CutiController@index')->name('laporan');
 Route::get('/cuti/kalender', 'Staff\CutiController@kalender')->name('kalender');
 Route::get('/logout',function() {

@@ -22,9 +22,7 @@ class LoginController extends Controller
                 return redirect()->route('welcome');
             }
         }
-        return back()->withErrors([
-            'email' => $request->email.$request->password,
-        ]);
+        return back()->with('error', 'Email atau password salah!');
     }
     public function index()
     {

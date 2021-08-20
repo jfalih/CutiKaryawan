@@ -18,10 +18,10 @@ class CreateCutiTable extends Migration
             $table->text('alasan');
             $table->date('from');
             $table->date('to');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->string('status');
             $table->unsignedBigInteger('cat_id');
-            $table->foreign('cat_id')->references('id')->on('category');
+            $table->foreign('cat_id')->references('id')->on('categories');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });

@@ -11,6 +11,14 @@
                         <h5 class="text-primary">Welcome Back !</h5>
                         <p class="text-muted">Sign in to continue to Sistem Cuti Karyawan.</p>
                     </div>
+                    @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="uil uil-exclamation-octagon me-2"></i>
+                        {{session('error')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                    @endif
                     <div class="p-2 mt-4">
                         <form action="{{route('authenticate')}}" method="POST">
                             @csrf
@@ -20,9 +28,6 @@
                             </div>
     
                             <div class="mb-3">
-                                <div class="float-end">
-                                    <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
-                                </div>
                                 <label class="form-label" for="userpassword">Password</label>
                                 <input type="password" class="form-control" id="userpassword" name="password" placeholder="Enter password">
                             </div>

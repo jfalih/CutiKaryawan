@@ -15,7 +15,7 @@
             d = e.getMonth(),
             o = e.getFullYear();
         var c = [
-                { title: "All Day Event", start: new Date(o, d, 1) },
+                { title: "All Day Event", start: new Date('2021-08-21'), end: new Date('2021-08-22') },
                 ],
             v = (document.getElementById("external-events"), document.getElementById("calendar"));
         function u(e) {

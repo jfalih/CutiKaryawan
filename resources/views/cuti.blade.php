@@ -27,31 +27,54 @@
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <form class="card" method="POST" action="{{route('cuti.add')}}">
                             @csrf
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12">                    
+                                        @if(count($errors) > 0)
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <ul>
+                                                @foreach($errors->all() as $message)
+                                                    <li>{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        @endif
+                                        @if(session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <i class="uil uil-check me-2"></i>
+                                            {{session('success')}}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                            </button>
+                                        </div>
+                                        @endif
+                                        @if(session('error'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <i class="uil uil-exclamation-octagon me-2"></i>
+                                            {{session('error')}}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                            </button>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
                                     <div class="row">        
                                         <div class="col-lg-12">
                                             <div class="mb-3 row">
-                                                <label class="form-label">Tanggal Cuti</label>
-                                                <div class="input-daterange input-group" id="datepicker6" data-date-format="yyyy-m-dd" data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
-                                                    <input type="text" class="form-control" name="start" placeholder="Tanggal Mulai" />
-                                                    <input type="text" class="form-control" name="end" placeholder="Tanggal Akhir" />
+                                                <label class="form-label">Kategori Cuti</label>
+                                                <div class="col-md-12">
+                                                    <select name="category" id="category" class="form-select">
+                                                        <option value="0">Pilih Kategori</option>
+                                                        @foreach($categories as $val)
+                                                        <option value="{{$val->id}}">{{$val->title}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row">
-                                                <label class="form-label" id="alasan">Alasan Cuti</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" type="text" placeholder="Alasan Cuti" id="alasan">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="form-label">File Surat Cuti</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" type="file" name="file">
-                                                </div>
-                                            </div>
+                                            <div id="isi"></div>
                                         </div>
                                     </div>
                             </div>
@@ -61,7 +84,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Keterangan</h4>
@@ -70,7 +93,6 @@
                                     <i class="fas fa-circle font-size-16 text-danger me-2"></i>
                                     Merah - Tanggal sudah diambil karyawan lain.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                       
                                     </button>
                                 </div>
                                 <div id="calendar"></div>
@@ -97,8 +119,65 @@
  <script src="{{asset('assets/libs/@fullcalendar/timegrid/main.min.js')}}"></script>
  <script src="{{asset('assets/libs/@fullcalendar/interaction/main.min.js')}}"></script>
 
+ <script>
+     $(document).ready(function(){
+    var sites = {!! json_encode($cuti->toArray()) !!};
+    var baru = [];
+    for(var i = 0; i < sites.length; i++){
+        baru.push({
+            title: sites[i].user.name,
+            allDay : true,
+            start : new Date(sites[i].from),
+            to : new Date(sites[i].to),
+            className: 'bg-danger'
+        });
+    }
+    
+    console.log('inibaru',baru);
+    !(function (g) {
+    "use strict";
+    function e() {}
+    (e.prototype.init = function () {
+        var l = g("#event-modal"),
+            t = g("#modal-title"),
+            a = g("#form-event"),
+            i = null,
+            r = null,
+            s = document.getElementsByClassName("needs-validation"),
+            i = null,
+            r = null,
+            e = new Date(),
+            n = e.getDate(),
+            d = e.getMonth(),
+            o = e.getFullYear();
+        var c = baru, v = (document.getElementById("calendar")); 
+        function u(e) {
+            l.modal("show"), a.removeClass("was-validated"), a[0].reset(), g("#event-title").val(), g("#event-category").val(), t.text("Add Event"), (r = e);
+        }
+        var m = new FullCalendar.Calendar(v, {
+            plugins: ["bootstrap", "interaction", "dayGrid", "timeGrid"],
+            editable: !1,
+            droppable: !0,
+            selectable: !0,
+            defaultView: "dayGridMonth",
+            themeSystem: "bootstrap",
+            header: { left: "prev,next today", center: "title"},
+            
+            events: c,
+        });
+        m.render();
+    }),
+        (g.CalendarPage = new e()),
+        (g.CalendarPage.Constructor = e);
+})(window.jQuery),
+    (function () {
+        "use strict";
+        window.jQuery.CalendarPage.init();
+    })();
+})
+    
+ </script>
  <!-- Calendar init -->
- <script src="{{asset('assets/js/pages/calendar.init.js')}}"></script>
 
  <script src="{{asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
  <script src="{{asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
@@ -107,5 +186,26 @@
 
  <!-- init js -->
  <script src="{{asset('assets/js/pages/form-advanced.init.js')}}"></script>
-
+ <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).ready(function () {
+        $('#category').on('change',function() {
+            var cat_id = this.value;
+            $.ajax({
+                url:"{{ route('category') }}",
+                type:"POST",
+                data: {
+                    cat_id: cat_id
+                },
+                success:function (data) {
+                    $('#isi').html(data);
+                }
+            })
+        });
+    });
+ </script>
 @endsection
