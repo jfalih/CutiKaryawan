@@ -10,7 +10,7 @@ class Cuti extends Model
     protected $fillable = [
         'alasan', 'from', 'to', 'file', 'status', 'cat_id', 'user_id'
     ];
-    public $timestamps = false;
+    public $timestamps = false; 
     public function category()
     {
         return $this->belongsTo(Category::class);

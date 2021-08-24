@@ -10,7 +10,7 @@
     @parent
 @endsection
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid"> 
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -31,16 +31,16 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-                        <h4 class="card-title">List Pengumuman</h4>
-                        <p class="card-title-desc">List pengumuman website.</p>
-                        <button class="btn btn-primary mb-3"  data-bs-toggle="modal" data-bs-target="#myModal"><i class="fas fa-plus"></i> Tambah Pengumuman</button>
+                        <h4 class="card-title">List User</h4>
+                        <p class="card-title-desc">List user pengguna website.</p>
+                        <button class="btn btn-primary mb-3"  data-bs-toggle="modal" data-bs-target="#myModal"><i class="fas fa-plus"></i> Tambah User</button>
                         <table id="datatables1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Judul</th>
-                                <th>Isi</th>
-                                <th>Status</th>
+                                <th>Nama</th>
+                                <th>Nik</th>
+                                <th>Email</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -53,27 +53,55 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div>
-    
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form method="POST" action="{{route('pengumuman.add')}}"  class="modal-content">
+            <form method="POST" action="{{route('user.add')}}"  class="modal-content">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Tambah Pengumuman</h5>
+                    <h5 class="modal-title" id="myModalLabel">Tambah User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <label for="example-text-input" class="col-form-label">Judul</label>
+                        <label for="example-text-input" class="col-form-label">Name</label>
                         <div class="col-md-12">
-                            <input class="form-control" name="judul" type="text" placeholder="Judul Pengumuman" id="example-text-input">
+                            <input class="form-control" name="name" type="text" placeholder="Nama" id="example-text-input">
                         </div>
                     </div>
                     <div class="row">
-                        <label for="example-text-input" class="col-form-label">Isi</label>
+                        <label for="example-text-input" class="col-form-label">Nik</label>
                         <div class="col-md-12">
-                            <input class="form-control" name="isi" type="text" placeholder="Isi Pengumuman" id="example-text-input">
+                            <input class="form-control" name="nik" type="text" placeholder="Nik" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="example-text-input" class="col-form-label">Email</label>
+                        <div class="col-md-12">
+                            <input class="form-control" name="email" type="email" placeholder="Email" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="example-text-input" class="col-form-label">Saldo Cuti</label>
+                        <div class="col-md-12">
+                            <input class="form-control" name="saldo_cuti" type="number" placeholder="Saldo cuti" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Level</label>
+                        <div class="col-md-10">
+                            <select name="level" class="form-select">
+                                <option>Pilih level</option>
+                                <option value="karyawan">Karyawan</option>
+                                <option value="staff">Staff</option>
+                                <option value="hrd">Hrd</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="example-text-input" class="col-form-label">Password</label>
+                        <div class="col-md-12">
+                            <input class="form-control" name="password" type="password" placeholder="Password" id="example-text-input">
                         </div>
                     </div>
                 </div>
@@ -112,12 +140,12 @@
               var table = $('#datatables1').DataTable({
                   processing: true,
                   serverSide: true,
-                  ajax: "{{ route('admin.pengumuman') }}",
+                  ajax: "{{ route('admin.user') }}",
                   columns: [
                       {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                      {data: 'title', name: 'Judul'},
-                      {data: 'isi', name: 'Isi'},
-                      {data: 'active', name: 'Status'},
+                      {data: 'name', name: 'Nama'},
+                      {data: 'nik', name: 'Nik'},
+                      {data: 'email', name: 'Email'},
                       {data: 'action', name: 'Action'},
                   ]
               });

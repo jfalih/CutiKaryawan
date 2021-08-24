@@ -28,7 +28,7 @@
             <div class="col-12">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form class="card" method="POST" action="{{route('cuti.add')}}">
+                        <form class="card" method="POST" enctype="multipart/form-data" action="{{route('cuti.add')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -89,9 +89,21 @@
                             <div class="card-body">
                                 <h4 class="card-title">Keterangan</h4>
                                 <h6 class="card-text font-14 text-muted">Berikut keterangan warna yang ada dikalender.</h6>
+                                <div class="alert alert-border alert-border-warning alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-circle font-size-16 text-warning me-2"></i>
+                                    Kuning - Cuti belum dikonfirmasi staff hrd.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
                                 <div class="alert alert-border alert-border-danger alert-dismissible fade show" role="alert">
                                     <i class="fas fa-circle font-size-16 text-danger me-2"></i>
-                                    Merah - Tanggal sudah diambil karyawan lain.
+                                    Merah - Cuti ditolak staff hrd.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="alert alert-border alert-border-success alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-circle font-size-16 text-success me-2"></i>
+                                    Hijau - Cuti dikonfirmasi staff hrd.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                     </button>
                                 </div>
@@ -124,12 +136,27 @@
     var sites = {!! json_encode($cuti->toArray()) !!};
     var baru = [];
     for(var i = 0; i < sites.length; i++){
+        var nameClass;
+        switch (sites[i].status) {
+            case 'pending':
+                nameClass = 'bg-warning';
+                break;
+            case 'cancel':
+                nameClass = 'bg-danger';
+                break;
+            case 'success':
+                nameClass = 'bg-success';
+                break;
+            case 'confirmed':
+                nameClass = 'bg-info';
+                break;
+        }
         baru.push({
             title: sites[i].user.name,
             allDay : true,
             start : new Date(sites[i].from),
-            to : new Date(sites[i].to),
-            className: 'bg-danger'
+            end : new Date(sites[i].to),
+            className: nameClass 
         });
     }
     
@@ -187,12 +214,12 @@
  <!-- init js -->
  <script src="{{asset('assets/js/pages/form-advanced.init.js')}}"></script>
  <script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $(document).ready(function () {
+    $(document).ready(function () {    
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $('#category').on('change',function() {
             var cat_id = this.value;
             $.ajax({

@@ -11,43 +11,44 @@
 @endsection
 @section('content')
     <div class="container-fluid">
-        
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
-                        <h4 class="card-title">Riwayat Cuti</h4>
-                        <p class="card-title-desc">Riwayat pengajuan cuti kamu selama ini.</p>
-
-                        <table id="datatables_new" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        @if(count($errors) > 0)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul>
+                                @foreach($errors->all() as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{session('success')}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        <h4 class="card-title">List Pengajuan Cuti</h4>
+                        <p class="card-title-desc">List pengajuan cuti.</p>
+                        <table id="datatables1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Alasan</th>
+                                <th>Nama</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
+                                <th>Cuti</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @forelse ($cuti as $i => $item)
-                                <tr>
-                                    <td>{{$i+1}}</td>
-                                    <td>{{$item->alasan}}</td>
-                                    <td>{{$item->from}}</td>
-                                    <td>{{$item->to}}</td>
-                                    <td>@include('status.default', ['data' => $item])</td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5">
-                                        <center>Tidak Ada Data</center>
-                                    </td>
-                                </tr>
-                                @endforelse
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div> <!-- end col -->
@@ -78,13 +79,20 @@
         <script src="{{ asset('assets/js/pages/datatables.init.js')}}"></script>
         <script type="text/javascript">
             $(function () {
-              var table = $('#datatables_new').DataTable({
-                  lengthChange: !1,
-                  buttons: ["copy", "excel", "pdf", "colvis"],
-              })
-            .buttons()
-            .container()
-            .appendTo("#datatables_new_wrapper .col-md-6:eq(0)");
+              var table = $('#datatables1').DataTable({
+                  processing: true,
+                  serverSide: true,
+                  ajax: "{{ route('admin.cuti') }}",
+                  columns: [
+                      {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                      {data: 'username', name: 'Nama'},
+                      {data: 'from', name: 'Tanggal Mulai'},
+                      {data: 'to', name: 'Tanggal Akhir'},
+                      {data: 'category', name: 'Jenis Cuti'},
+                      {data: 'status', name: 'Status'},
+                      {data: 'action', name: 'Action'},
+                  ]
+              });
               
             });
         </script>

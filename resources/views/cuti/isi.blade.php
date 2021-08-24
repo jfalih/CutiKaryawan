@@ -2,8 +2,8 @@
 <div class="mb-3 row">
     <label class="form-label">Tanggal Cuti</label>
     <div class="input-daterange input-group" id="datepicker6" data-date-format="yyyy-m-dd" data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
-        <input type="text" class="form-control" name="start" placeholder="Tanggal Mulai" />
-        <input type="text" class="form-control" name="end" placeholder="Tanggal Akhir" />
+        <input type="text" class="form-control" name="from" placeholder="Tanggal Mulai" />
+        <input type="text" class="form-control" name="to" placeholder="Tanggal Akhir" />
     </div>
 </div>
 <div class="mb-3 row">

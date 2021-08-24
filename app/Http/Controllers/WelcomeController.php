@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Pengumuman;
 class WelcomeController extends Controller
 {
     public function __construct()
@@ -13,6 +13,7 @@ class WelcomeController extends Controller
 
     public function index()
     {
-        return view('welcome');
+        $pengumuman = Pengumuman::all();
+        return view('welcome', ['pengumuman' => $pengumuman]);
     }
 }
