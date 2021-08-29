@@ -87,9 +87,9 @@
                             <input class="form-control" name="saldo_cuti" type="number" placeholder="Saldo cuti" id="example-text-input">
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label class="col-md-2 col-form-label">Level</label>
-                        <div class="col-md-10">
+                    <div class="row">
+                        <label for="example-text-input" class="col-form-label">Level</label>
+                        <div class="col-md-12">
                             <select name="level" class="form-select">
                                 <option>Pilih level</option>
                                 <option value="karyawan">Karyawan</option>

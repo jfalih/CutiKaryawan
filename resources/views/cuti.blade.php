@@ -160,7 +160,6 @@
         });
     }
     
-    console.log('inibaru',baru);
     !(function (g) {
     "use strict";
     function e() {}

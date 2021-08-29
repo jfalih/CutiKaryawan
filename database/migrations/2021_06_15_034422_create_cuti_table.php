@@ -22,8 +22,10 @@ class CreateCutiTable extends Migration
             $table->string('status');
             $table->unsignedBigInteger('cat_id');
             $table->foreign('cat_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('sub_id')->nullable();
+            $table->foreign('sub_id')->references('id')->on('subcategories');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

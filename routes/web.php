@@ -37,7 +37,10 @@ Route::get('/hrd/cuti', 'Admin\CutiController@index')->name('admin.cuti');
 Route::post('/hrd/cuti/konfirmasi/{id}', 'Admin\CutiController@konfirmasi')->name('admin.cuti.konfirmasi');
 Route::post('/hrd/cuti/tolak/{id}', 'Admin\CutiController@tolak')->name('admin.cuti.tolak');
 Route::get('/hrd/user', 'Admin\UserController@index')->name('admin.user');
-Route::post('/hrd/user/add', 'Admin\UserController@add')->name('user.add');
+Route::get('/hrd/user/{id}', 'Admin\UserController@edit')->name('admin.user.edit');
+Route::post('/hrd/user/{id}', 'Admin\UserController@update')->name('admin.user.update');
+Route::delete('/hrd/user/{id}', 'Admin\UserController@delete')->name('admin.user.delete');
+Route::post('/hrd/create_user', 'Admin\UserController@add')->name('user.add');
 
 Route::post('/cuti/addCuti', 'CutiController@addCuti')->name('cuti.add');
 Route::get('/cuti/history','CutiController@history')->name('history.cuti');

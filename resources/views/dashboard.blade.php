@@ -25,7 +25,7 @@
     <!-- end page title -->
 
     <div class="row">
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-body">
                     <div>
@@ -35,7 +35,17 @@
                 </div>
             </div>
         </div> <!-- end col-->
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h4 class="mb-1 mt-1"><span data-plugin="counterup">{{App\User::where('level', 'staff')->count()}}</span></h4>
+                        <p class="text-muted mb-0">Total Staff</p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col-->
+        <div class="col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-body">
                     <div>
@@ -45,7 +55,7 @@
                 </div>
             </div>
         </div> <!-- end col-->
-        <div class="col-md-12 col-xl-4">
+        <div class="col-md-12 col-xl-3">
             <div class="card">
                 <div class="card-body">
                     <div>
@@ -72,6 +82,12 @@
                     <div class="alert alert-border alert-border-warning alert-dismissible fade show" role="alert">
                         <i class="fas fa-circle font-size-16 text-warning me-2"></i>
                         Kuning - Tanggal karyawan belum dikonfirmasi.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="alert alert-border alert-border-primary alert-dismissible fade show" role="alert">
+                        <i class="fas fa-circle font-size-16 text-primary me-2"></i>
+                        Biru - Tanggal karyawan dikonfirmasi staff.
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         </button>
                     </div>
@@ -104,8 +120,11 @@
             case 'pending':
                 nameClass = 'bg-warning';
                 break;
-            case 'cancel':
+            case 'canceled':
                 nameClass = 'bg-danger';
+                break;
+            case 'confirmed':
+                nameClass = 'bg-primary';
                 break;
         }
         baru.push({

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\{Cuti, Category, User};
+use App\{Cuti, Category, User, Subcategory};
 use Illuminate\Support\Facades\Storage;
 use DataTables;
 use Auth;
@@ -72,11 +72,12 @@ class CutiController extends Controller
                 $rules = [
                     'file' => 'required',
                     'from' => 'required',
+                    'subcategory' => 'required',
                     'to' => 'required',
                     'alasan' => 'required|min:10|max:190',
                 ];
                 $messages = [
-                    'jenis.required' => 'Jenis cuti wajib dipilih.',
+                    'subcategory.required' => 'Jenis cuti wajib dipilih.',
                     'ttd.required' => 'Tanda tangan wajib diisi.',
                     'file.required' => 'File wajib diisi.',
                     'from.required' => 'Tanggal awal cuti wajib diisi.',
@@ -95,6 +96,7 @@ class CutiController extends Controller
                 );
                 $cuti = Cuti::create([
                     'cat_id' => $request->category,
+                    'sub_id' => $request->subcategory,
                     'alasan' => $request->alasan,
                     'file' => $path,
                     'from' => $request->from,
@@ -120,7 +122,11 @@ class CutiController extends Controller
     }
     public function category(Request $request)
     {
-        return view('cuti.isi', ['id' => $request->cat_id]);
+        $subcategories = Subcategory::all();
+        return view('cuti.isi', [
+            'id' => $request->cat_id,
+            'subcategory' => $subcategories
+        ]);
     }
     public function history(Request $request)
     {

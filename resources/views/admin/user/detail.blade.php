@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0">Ganti Password</h4>
+                    <h4 class="mb-0">Ubah data user {{$user->name}}</h4>
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
 
         <div class="row">
             <div class="col-12">
-                <form method="POST" action="{{route('user.password')}}" class="card">
+                <form method="POST" action="{{route('admin.user.update',['id' => $user->id])}}" class="card">
                     @csrf
                     <div class="card-body">
                         @if(count($errors) > 0)
@@ -44,21 +44,27 @@
                                         </div>
                                         @endif
                         <div class="mb-3 row">
-                            <label for="example-text-input" class="col-md-2 col-form-label">Password Lama</label>
+                            <label for="name" class="col-md-2 col-form-label">Name</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" name="password" id="example-text-input">
+                                <input class="form-control" type="text" name="name" value="{{$user->name}}" id="name">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="example-text-input" class="col-md-2 col-form-label">Password Baru</label>
+                            <label for="nik" class="col-md-2 col-form-label">Nik</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" name="new_password">
+                                <input class="form-control" type="text" name="nik" value="{{$user->nik}}" id="nik">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="example-text-input" class="col-md-2 col-form-label">Konfirmasi Password Baru</label>
+                            <label for="email" class="col-md-2 col-form-label">Email</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" name="c_password" id="example-text-input">
+                                <input class="form-control" type="email" name="email" value="{{$user->email}}" id="email">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="password" class="col-md-2 col-form-label">Password</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="password" name="password" id="password">
                             </div>
                         </div>
                     </div>

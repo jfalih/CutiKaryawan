@@ -67,14 +67,14 @@
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user-cog"></i>
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Pengaturan Akun</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Menu Akun</span>
                                 <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <a class="dropdown-item" href="{{route('user.profile')}}"><i class="uil uil-user font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Profile</span></a>
                                 <a class="dropdown-item" href="{{route('user.pengaturan')}}"><i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Pengaturan Akun</span></a>
-                                <a class="dropdown-item" href="{{route('user.pengaturan')}}"><i class="uil uil-lock font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Ganti Password</span></a>
+                                <a class="dropdown-item" href="{{route('user.password')}}"><i class="uil uil-lock font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Ganti Password</span></a>
                                 <a class="dropdown-item" href="{{route('logout')}}"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
                             </div>
                         </div>
@@ -110,6 +110,18 @@
                                     </ul>
                                 </li>
                             @endif
+                            @if (Auth::user()->level === 'staff')
+                                <li>
+                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                        <i class="uil-cog"></i>
+                                        <span>Pengaturan Staff</span>
+                                    </a>
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        <li><a href="{{route('admin.cuti')}}">List Pengajuan Cuti</a></li>
+                                        <li><a href="{{route('admin.user')}}">List User</a></li>
+                                    </ul>
+                                </li>
+                            @endif
                             @if(Auth::user()->level === 'hrd') 
                                 <li>
                                     <a href="{{route('dashboard')}}">
@@ -132,13 +144,13 @@
                                     <span>Pengajuan Cuti</span>
                                 </a>
                             </li>
-                            @endif
                             <li>
                                 <a href="{{route('history.cuti')}}">
                                     <i class="uil-clipboard"></i>
                                     <span>Riwayat Cuti</span>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                     <!-- Sidebar -->

@@ -14,6 +14,17 @@
 </div>
 @elseif($id == 2)
 <div class="mb-3 row">
+    <label id="subcategory" class="form-label">Kategori Cuti</label>
+    <div class="col-md-12">
+        <select name="subcategory" id="subcategory" class="form-select">
+            <option value="0">Pilih Kategori</option>
+            @foreach($subcategory as $val)
+            <option value="{{$val->id}}">{{$val->title}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="mb-3 row">
     <label class="form-label">Tanggal Cuti</label>
     <div class="input-daterange input-group" id="datepicker6" data-date-format="yyyy-m-dd" data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
         <input type="text" class="form-control" name="from" placeholder="Tanggal Mulai" />

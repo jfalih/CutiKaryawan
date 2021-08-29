@@ -24,7 +24,7 @@
                         <h5 class="mt-3 mb-1">{{Auth::user()->name}}</h5>
                         <p class="text-muted">{{Auth::user()->level}}</p>
                         <a href="{{route('user.pengaturan')}}" class="btn btn-light btn-sm"><i class="uil uil-cog"></i> Pengaturan Akun</a>
-                        <a href="{{route('user.pengaturan')}}" class="btn btn-light btn-sm"><i class="uil uil-lock"></i> Ganti Password</a>
+                        <a href="{{route('user.password')}}" class="btn btn-light btn-sm"><i class="uil uil-lock"></i> Ganti Password</a>
                     </div>
 
                     <hr class="my-4">
