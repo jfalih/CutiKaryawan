@@ -118,6 +118,7 @@
                                     </a>
                                 </li>
                             @endif
+                            @if(Auth::user()->level === 'karyawan' || Auth::user()->level === 'staff') 
                             <li>
                                 <a href="{{route('welcome')}}">
                                     <i class="uil-home-alt"></i>
@@ -131,7 +132,7 @@
                                     <span>Pengajuan Cuti</span>
                                 </a>
                             </li>
-                            
+                            @endif
                             <li>
                                 <a href="{{route('history.cuti')}}">
                                     <i class="uil-clipboard"></i>
