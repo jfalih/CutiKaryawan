@@ -8,8 +8,8 @@
                
                 <div class="card-body p-4"> 
                     <div class="text-center mt-2">
-                        <h5 class="text-primary">Welcome Back !</h5>
-                        <p class="text-muted">Sign in to continue to Sistem Cuti Karyawan.</p>
+                        <h5 class="text-primary">Aplikasi Cuti Karyawan</h5>
+                        <p class="text-muted">PT. XIN YUAN STEEL INDONESIA</p>
                     </div>
                     @if(session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
