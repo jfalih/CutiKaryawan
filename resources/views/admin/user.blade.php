@@ -82,19 +82,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="example-text-input" class="col-form-label">Saldo Cuti</label>
-                        <div class="col-md-12">
-                            <input class="form-control" name="saldo_cuti" type="number" placeholder="Saldo cuti" id="example-text-input">
-                        </div>
-                    </div>
-                    <div class="row">
                         <label for="example-text-input" class="col-form-label">Level</label>
                         <div class="col-md-12">
                             <select name="level" class="form-select">
                                 <option>Pilih level</option>
                                 <option value="karyawan">Karyawan</option>
+                                @if(Auth::user()->level != 'staff')
                                 <option value="staff">Staff</option>
                                 <option value="hrd">Hrd</option>
+                                @endif
                             </select>
                         </div>
                     </div>

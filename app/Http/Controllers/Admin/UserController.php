@@ -14,6 +14,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
+            if(Auth::user()->level === 'staff'){
+            $data = User::where('status','karyawan')->get();
+            return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function (User $user) {
+                return view('admin.user.action', [
+                    'data' => $user
+                ]);
+            })
+            ->make(true);
+            } else {
             $data = User::all();
             return DataTables::of($data)
             ->addIndexColumn()
@@ -23,6 +34,7 @@ class UserController extends Controller
                 ]);
             })
             ->make(true);
+            }
         }
         return view('admin.user');
     }
@@ -47,7 +59,7 @@ class UserController extends Controller
         if($user){
             $user->name = $request->name;
             $user->nik = $request->nik;
-            $user->email = $request->email;
+            $user->email = $request->email;            
             $user->password = Hash::make($request->password);
             $user->save();
             return redirect()->back()->with('success', 'Berhasil merubah pengguna!');
@@ -59,7 +71,6 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'nik' => 'required',
-            'saldo_cuti' => 'required|numeric',
             'email' => 'required|email|unique:users',
             'level' => 'required',
             'password' => 'required'
@@ -67,7 +78,6 @@ class UserController extends Controller
         $messages = [
             'name.required' => 'Nama wajib diisi.',
             'nik.required' => 'Nik wajib diisi.',
-            'saldo_cuti.required' => 'Saldo awal cuti wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'level.required' => 'Level pengguna wajib diisi.',
             'password.required' => 'Password wajib diisi.',
@@ -79,7 +89,7 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'nik' => $request->nik,
-            'saldo_cuti' => $request->saldo_cuti,
+            'saldo_cuti' => 12,
             'email' => $request->email,
             'level' => $request->level,
             'password' => Hash::make($request->password)
