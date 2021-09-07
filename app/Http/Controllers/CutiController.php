@@ -42,8 +42,13 @@ class CutiController extends Controller
                 if($validator->fails()){
                     return redirect()->back()->withErrors($validator);
                 }                
-                $to = \Carbon\Carbon::createFromFormat('Y-m-d', $request->from);
-                $from = \Carbon\Carbon::createFromFormat('Y-m-d', $request->to);
+                $from_count = Cuti::where('from', $request->from)->count();
+                $to_count = Cuti::where('to', $request->to)->count();
+                if($from_count > 5 || $to_count > 5){
+                    return redirect()->back()->with('error', 'Batas cuti di hari tersebut sudah penuh!');
+                }
+                $to = \Carbon\Carbon::createFromFormat('Y-m-d', $request->to);
+                $from = \Carbon\Carbon::createFromFormat('Y-m-d', $request->from);
                 $diff_in_days = $to->diffInDays($from);
                 if($diff_in_days <= Auth::user()->saldo_cuti){
                     $cuti_count = Cuti::where([
@@ -90,6 +95,11 @@ class CutiController extends Controller
                 if($validator->fails()){
                     return redirect()->back()->withErrors($validator);
                 } 
+                $from_count = Cuti::where('from', $request->from)->count();
+                $to_count = Cuti::where('to', $request->to)->count();
+                if($from_count > 5 || $to_count > 5){
+                    return redirect()->back()->with('error', 'Batas cuti di hari tersebut sudah penuh!');
+                }
                 $path = Storage::putFile(
                     'public/files',
                     $request->file('file'),

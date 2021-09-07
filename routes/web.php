@@ -34,6 +34,7 @@ Route::get('/hrd/pengumuman', 'Admin\PengumumanController@index')->name('admin.p
 Route::delete('/hrd/pengumuman/{id}', 'Admin\PengumumanController@destroy')->name('pengumuman.destroy');
 Route::post('/hrd/pengumuman/add', 'Admin\PengumumanController@add')->name('pengumuman.add');
 Route::get('/hrd/cuti', 'Admin\CutiController@index')->name('admin.cuti');
+Route::get('/hrd/cuti/lain', 'Admin\CutiController@lain')->name('admin.cuti.lain');
 Route::post('/hrd/cuti/konfirmasi/{id}', 'Admin\CutiController@konfirmasi')->name('admin.cuti.konfirmasi');
 Route::post('/hrd/cuti/tolak/{id}', 'Admin\CutiController@tolak')->name('admin.cuti.tolak');
 Route::get('/hrd/user', 'Admin\UserController@index')->name('admin.user');

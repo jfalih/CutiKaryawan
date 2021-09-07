@@ -31,8 +31,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-                        <h4 class="card-title">List Pengajuan Cuti</h4>
-                        <p class="card-title-desc">List pengajuan cuti.</p>
+                        <h4 class="card-title">List cuti tahunan</h4>
+                        <p class="card-title-desc">List cuti tahunan.</p>
                         <table id="datatables1" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr>
@@ -40,6 +40,51 @@
                                 <th>Nama</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
+                                <th>Jumlah Cuti</th>
+                                <th>Sisa Cuti</th>
+                                <th>Cuti</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+            
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @if(count($errors) > 0)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul>
+                                @foreach($errors->all() as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{session('success')}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+                        <h4 class="card-title">List Cuti Lain Lain</h4>
+                        <p class="card-title-desc">List cuti lain lain.</p>
+                        <table id="datata" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Akhir</th>
+                                <th>Jumlah Cuti</th>
+                                <th>Sisa Cuti</th>
                                 <th>Cuti</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -88,6 +133,29 @@
                       {data: 'username', name: 'Nama'},
                       {data: 'from', name: 'Tanggal Mulai'},
                       {data: 'to', name: 'Tanggal Akhir'},
+                      {data: 'jumlah_cuti', name: 'Jumlah'},
+                      {data: 'sisa_cuti', name: 'Sisa Cuti'},
+                      {data: 'category', name: 'Jenis Cuti'},
+                      {data: 'status', name: 'Status'},
+                      {data: 'action', name: 'Action'},
+                  ]
+              });
+              
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+              var table = $('#datata').DataTable({
+                  processing: true,
+                  serverSide: true,
+                  ajax: "{{ route('admin.cuti.lain') }}",
+                  columns: [
+                      {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                      {data: 'username', name: 'Nama'},
+                      {data: 'from', name: 'Tanggal Mulai'},
+                      {data: 'to', name: 'Tanggal Akhir'},
+                      {data: 'jumlah_cuti', name: 'Jumlah'},
+                      {data: 'sisa_cuti', name: 'Sisa Cuti'},
                       {data: 'category', name: 'Jenis Cuti'},
                       {data: 'status', name: 'Status'},
                       {data: 'action', name: 'Action'},

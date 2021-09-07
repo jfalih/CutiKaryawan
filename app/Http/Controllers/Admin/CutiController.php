@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{Cuti, Category};
+use App\{Cuti, Category, Subcategory};
 use DataTables;
 use Auth;
 class CutiController extends Controller
@@ -13,13 +13,42 @@ class CutiController extends Controller
     {
         if($request->ajax()){
             if(Auth::user()->level === 'staff'){
-                $data = Cuti::where('status','success')->orWhere('status','pending')->orWhere('status','canceled')->get();
+                $data = Cuti::where([
+                    ['status', '=','success'],
+                    ['cat_id', '=', 1]
+                ])->orWhere(
+                    [
+                        ['status', '=','pending'],
+                        ['cat_id', '=', 1]
+                    ]
+                )->orWhere(
+                    [
+                        ['status', '=','canceled'],
+                        ['cat_id', '=', 1]
+                    ]
+                )->get();
                 return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function (Cuti $cuti) {
                     return view('admin.cuti.action', [
                         'data' => $cuti
                     ]);
+                })
+                ->addColumn('jumlah_cuti', function (Cuti $cuti) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
+                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
+                    $diff_in_days = $to->diffInDays($from);
+                    return $diff_in_days;
+                })
+                ->addColumn('sisa_cuti', function (Cuti $cuti) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
+                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
+                    $diff_in_days = $to->diffInDays($from);
+                    if($diff_in_days > 0){
+                        return $diff_in_days;
+                    } else{
+                        return 0;
+                    }
                 })
                 ->addColumn('status', function (Cuti $cuti) {
                     return view('status.default', [
@@ -34,7 +63,20 @@ class CutiController extends Controller
                 })
                 ->make(true);
             } else {
-                $data = Cuti::where('status','success')->orWhere('status','confirmed')->orWhere('status','canceled')->get();
+                $data = Cuti::where([
+                    ['status', '=','success'],
+                    ['cat_id', '=', 1]
+                ])->orWhere(
+                    [
+                        ['status', '=','confirmed'],
+                        ['cat_id', '=', 1]
+                    ]
+                )->orWhere(
+                    [
+                        ['status', '=','canceled'],
+                        ['cat_id', '=', 1]
+                    ]
+                )->get();
                 return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function (Cuti $cuti) {
@@ -57,6 +99,96 @@ class CutiController extends Controller
             }
         }
         return view('admin.cuti');
+    }
+    public function lain(Request $request)
+    {
+        if($request->ajax()){
+            if(Auth::user()->level === 'staff'){
+                $data = Cuti::where([
+                    ['status', '=','success'],
+                    ['cat_id', '=', 2]
+                ])->orWhere(
+                    [
+                        ['status', '=','pending'],
+                        ['cat_id', '=', 2]
+                    ]
+                )->orWhere(
+                    [
+                        ['status', '=','canceled'],
+                        ['cat_id', '=', 2]
+                    ]
+                )->get();
+                return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function (Cuti $cuti) {
+                    return view('admin.cuti.action', [
+                        'data' => $cuti
+                    ]);
+                })
+                ->addColumn('jumlah_cuti', function (Cuti $cuti) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
+                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
+                    $diff_in_days = $to->diffInDays($from);
+                    return $diff_in_days;
+                })
+                ->addColumn('sisa_cuti', function (Cuti $cuti) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
+                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
+                    $diff_in_days = $to->diffInDays($from);
+                    if($diff_in_days > 0){
+                        return $diff_in_days;
+                    } else{
+                        return 0;
+                    }
+                })
+                ->addColumn('status', function (Cuti $cuti) {
+                    return view('status.default', [
+                        'data' => $cuti
+                    ]);
+                })
+                ->addColumn('username', function (Cuti $cuti) {
+                    return $cuti->user->name;
+                })
+                ->addColumn('category', function (Cuti $cuti) {
+                    return Subcategory::find($cuti->sub_id)->title;
+                })
+                ->make(true);
+            } else {
+                $data = Cuti::where([
+                    ['status', '=','success'],
+                    ['cat_id', '=', 2]
+                ])->orWhere(
+                    [
+                        ['status', '=','confirmed'],
+                        ['cat_id', '=', 2]
+                    ]
+                )->orWhere(
+                    [
+                        ['status', '=','canceled'],
+                        ['cat_id', '=', 2]
+                    ]
+                )->get();
+                return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function (Cuti $cuti) {
+                    return view('admin.cuti.action', [
+                        'data' => $cuti
+                    ]);
+                })
+                ->addColumn('status', function (Cuti $cuti) {
+                    return view('status.default', [
+                        'data' => $cuti
+                    ]);
+                })
+                ->addColumn('username', function (Cuti $cuti) {
+                    return $cuti->user->name;
+                })
+                ->addColumn('category', function (Cuti $cuti) {
+                    return Category::find($cuti->cat_id)->title;
+                })
+                ->make(true);
+            }
+        }
     }
     public function konfirmasi($id)
     {

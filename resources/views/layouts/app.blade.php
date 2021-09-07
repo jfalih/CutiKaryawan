@@ -130,7 +130,7 @@
                                     </a>
                                 </li>
                             @endif
-                            @if(Auth::user()->level === 'karyawan' || Auth::user()->level === 'staff') 
+                            @if(Auth::user()->level === 'karyawan') 
                             <li>
                                 <a href="{{route('welcome')}}">
                                     <i class="uil-home-alt"></i>
