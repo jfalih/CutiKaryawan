@@ -24,6 +24,8 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Category</th>
+                                <th>Subcategory</th>
                                 <th>Alasan</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
@@ -34,6 +36,8 @@
                                 @forelse ($cuti as $i => $item)
                                 <tr>
                                     <td>{{$i+1}}</td>
+                                    <td>{{$item->category->title}}</td>
+                                    <td>@if($item->subcategory == null) {{'Tidak Ada Subcategory'}} @else {{$item->subcategory->title}} @endif</td>
                                     <td>{{$item->alasan}}</td>
                                     <td>{{$item->from}}</td>
                                     <td>{{$item->to}}</td>

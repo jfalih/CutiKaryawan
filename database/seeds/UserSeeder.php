@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'active' => 1
         ]);
         User::create([
-            'email' => 'staff@gmail.com',
+            'email' => 'staffhrd@gmail.com',
             'nik' => '1231231231212',
             'saldo_cuti' => 12,
             'password' => Hash::make('staff123'),
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'active' => 1
         ]);
         User::create([
-            'email' => 'hrd@gmail.com',
+            'email' => 'managerhrd@gmail.com',
             'nik' => '1231231231212',
             'saldo_cuti' => 12,
             'password' => Hash::make('hrd123'),

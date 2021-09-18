@@ -114,19 +114,26 @@
                                 <li>
                                     <a href="{{route('dashboard')}}">
                                         <i class="uil-window-section"></i>
-                                        <span>Staff Dashboard</span>
+                                        <span>Home</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="uil-cog"></i>
-                                        <span>Pengaturan Staff</span>
+                                    <a href="{{route('admin.pengumuman')}}">
+                                        <i class="uil-megaphone"></i>
+                                        <span>List Pengumuman</span>
                                     </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li><a href="{{route('admin.pengumuman')}}">List Pengumuman</a></li>
-                                        <li><a href="{{route('admin.cuti')}}">List Pengajuan Cuti</a></li>
-                                        <li><a href="{{route('admin.user')}}">List User</a></li>
-                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{{route('admin.cuti')}}">
+                                        <i class="uil-database"></i>
+                                        <span>List Pengajuan Cuti</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('admin.user')}}">
+                                        <i class="uil-user"></i>
+                                        <span>List User</span>
+                                    </a>
                                 </li>
                             @endif
                             @if(Auth::user()->level === 'hrd') 

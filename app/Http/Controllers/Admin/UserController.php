@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         if($request->ajax()){
             if(Auth::user()->level === 'staff'){
-            $data = User::where('status','karyawan')->get();
+            $data = User::where('level','karyawan')->get();
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function (User $user) {

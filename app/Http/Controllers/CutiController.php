@@ -140,7 +140,7 @@ class CutiController extends Controller
     }
     public function history(Request $request)
     {
-        $cuti = Cuti::where('user_id', Auth::user()->id)->get();
+        $cuti = Cuti::where('user_id', Auth::user()->id)->with('category')->get();
         return view('cuti.history',[
             'cuti' => $cuti
         ]);

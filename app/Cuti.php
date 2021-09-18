@@ -13,7 +13,7 @@ class Cuti extends Model
     public $timestamps = false; 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'cat_id');
     }
     public function user()
     {
