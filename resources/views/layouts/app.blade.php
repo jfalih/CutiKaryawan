@@ -97,20 +97,7 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title">Menu</li>
-                            @if (Auth::user()->level === 'hrd')
-                                <li>
-                                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                        <i class="uil-cog"></i>
-                                        <span>Pengaturan Hrd</span>
-                                    </a>
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        <li><a href="{{route('admin.cuti')}}">List Pengajuan Cuti</a></li>
-                                        <li><a href="{{route('admin.pengumuman')}}">List Pengumuman</a></li>
-                                        <li><a href="{{route('admin.user')}}">List User</a></li>
-                                    </ul>
-                                </li>
-                            @endif
-                            @if (Auth::user()->level === 'staff')
+                            @if (Auth::user()->level === 'staff' || Auth::user()->level === 'hrd')
                                 <li>
                                     <a href="{{route('dashboard')}}">
                                         <i class="uil-window-section"></i>
@@ -133,14 +120,6 @@
                                     <a href="{{route('admin.user')}}">
                                         <i class="uil-user"></i>
                                         <span>List User</span>
-                                    </a>
-                                </li>
-                            @endif
-                            @if(Auth::user()->level === 'hrd') 
-                                <li>
-                                    <a href="{{route('dashboard')}}">
-                                        <i class="uil-window-section"></i>
-                                        <span>Hrd Dashboard</span>
                                     </a>
                                 </li>
                             @endif

@@ -150,7 +150,11 @@ class CutiController extends Controller
                     return $cuti->user->name;
                 })
                 ->addColumn('category', function (Cuti $cuti) {
-                    return Subcategory::find($cuti->sub_id)->title;
+                    if($cuti->sub_id !== null) {
+                        return Subcategory::find($cuti->sub_id)->title;
+                    } else {
+                        return Category::find($cuti->cat_id)->title;    
+                    }
                 })
                 ->make(true);
             } else {
@@ -184,7 +188,11 @@ class CutiController extends Controller
                     return $cuti->user->name;
                 })
                 ->addColumn('category', function (Cuti $cuti) {
-                    return Category::find($cuti->cat_id)->title;
+                    if($cuti->sub_id !== null) {
+                        return Subcategory::find($cuti->sub_id)->title;
+                    } else {
+                        return Category::find($cuti->cat_id)->title;    
+                    }
                 })
                 ->make(true);
             }
