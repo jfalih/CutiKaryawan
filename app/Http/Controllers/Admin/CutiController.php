@@ -41,14 +41,7 @@ class CutiController extends Controller
                     return $diff_in_days;
                 })
                 ->addColumn('sisa_cuti', function (Cuti $cuti) {
-                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
-                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
-                    $diff_in_days = $to->diffInDays($from);
-                    if($diff_in_days > 0){
-                        return $diff_in_days;
-                    } else{
-                        return 0;
-                    }
+                    return $cuti->user->saldo_cuti;
                 })
                 ->addColumn('status', function (Cuti $cuti) {
                     return view('status.default', [
@@ -83,6 +76,15 @@ class CutiController extends Controller
                     return view('admin.cuti.action', [
                         'data' => $cuti
                     ]);
+                })
+                ->addColumn('jumlah_cuti', function (Cuti $cuti) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
+                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
+                    $diff_in_days = $to->diffInDays($from);
+                    return $diff_in_days;
+                })
+                ->addColumn('sisa_cuti', function (Cuti $cuti) {
+                    return $cuti->user->saldo_cuti;
                 })
                 ->addColumn('status', function (Cuti $cuti) {
                     return view('status.default', [
@@ -131,16 +133,6 @@ class CutiController extends Controller
                     $diff_in_days = $to->diffInDays($from);
                     return $diff_in_days;
                 })
-                ->addColumn('sisa_cuti', function (Cuti $cuti) {
-                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
-                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
-                    $diff_in_days = $to->diffInDays($from);
-                    if($diff_in_days > 0){
-                        return $diff_in_days;
-                    } else{
-                        return 0;
-                    }
-                })
                 ->addColumn('status', function (Cuti $cuti) {
                     return view('status.default', [
                         'data' => $cuti
@@ -178,6 +170,12 @@ class CutiController extends Controller
                     return view('admin.cuti.action', [
                         'data' => $cuti
                     ]);
+                })
+                ->addColumn('jumlah_cuti', function (Cuti $cuti) {
+                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->to);
+                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $cuti->from);
+                    $diff_in_days = $to->diffInDays($from);
+                    return $diff_in_days;
                 })
                 ->addColumn('status', function (Cuti $cuti) {
                     return view('status.default', [

@@ -84,7 +84,6 @@
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Akhir</th>
                                 <th>Jumlah Cuti</th>
-                                <th>Sisa Cuti</th>
                                 <th>Cuti</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -155,7 +154,6 @@
                       {data: 'from', name: 'Tanggal Mulai'},
                       {data: 'to', name: 'Tanggal Akhir'},
                       {data: 'jumlah_cuti', name: 'Jumlah'},
-                      {data: 'sisa_cuti', name: 'Sisa Cuti'},
                       {data: 'category', name: 'Jenis Cuti'},
                       {data: 'status', name: 'Status'},
                       {data: 'action', name: 'Action'},
